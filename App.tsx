@@ -16,8 +16,8 @@ export default function App() {
     <NavigationContainer>
       <SafeAreaView style={styles.mainView}>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Stats" component={Stats} />
           <Stack.Screen name="HowToPlay" component={HowToPlay} />
           <Stack.Screen name="AppInfo" component={AppInfo} />

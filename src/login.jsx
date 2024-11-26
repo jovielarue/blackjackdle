@@ -1,5 +1,55 @@
 import React from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {styles} from './styles/common-styles';
+const blackjackdleLogo = require('./assets/blackjackdle.png');
 
-export default function Login() {
-  return <></>;
+export default function Login({navigation}) {
+  return (
+    <View style={[styles.screenView, loginStyles.loginView]}>
+      <View style={loginStyles.logoView}>
+        <Image style={loginStyles.logoImage} source={blackjackdleLogo} />
+        <Text style={styles.headerText}>blackjackdle</Text>
+      </View>
+      <TouchableOpacity style={loginStyles.button}>
+        <Text style={loginStyles.buttonText}>Play Today's Blackjackdle</Text>
+      </TouchableOpacity>
+      <View style={loginStyles.bottomButtons}>
+        <TouchableOpacity style={loginStyles.button}>
+          <Text style={loginStyles.buttonText}>How to Play</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={loginStyles.button}>
+          <Text style={loginStyles.buttonText}>App Info</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 }
+
+const loginStyles = StyleSheet.create({
+  loginView: {
+    paddingVertical: 30,
+    justifyContent: 'space-between',
+  },
+  logoView: {
+    alignItems: 'center',
+  },
+  logoImage: {
+    height: 100,
+    width: 100,
+  },
+  button: {
+    padding: 20,
+    elevation: 10,
+    borderRadius: 5,
+    minWidth: 100,
+    backgroundColor: '#F3FADA',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'black',
+  },
+  bottomButtons: {
+    gap: 15,
+  },
+});
