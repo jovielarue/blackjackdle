@@ -5,10 +5,10 @@ import {styles} from './styles/common-styles';
 export default function HowToPlay() {
   return (
     <View style={styles.screenView}>
-      <Text style={howToPlayStyles.subHeading}>How to Play</Text>
+      <Text style={styles.subHeading}>How to Play</Text>
       <Text style={styles.headerText}>blackjackdle</Text>
-      <View style={howToPlayStyles.explanation}>
-        <Text style={howToPlayStyles.explanationText}>
+      <View style={styles.explanation}>
+        <Text style={styles.explanationText}>
           Blackjackdle is a daily Blackjack game! Every day, open the app and
           play the same hand of Blackjack as thousands of players around the
           world are playing. Rules of Blackjack: Your goal is to get your hand
@@ -28,21 +28,3 @@ export default function HowToPlay() {
     </View>
   );
 }
-
-const howToPlayStyles = StyleSheet.create({
-  subHeading: {
-    color: 'white',
-    fontSize: 20,
-    marginTop: 15,
-  },
-  explanation: {
-    backgroundColor: '#204924',
-    padding: 15,
-    marginTop: 25,
-    margin: 15,
-  },
-  explanationText: {
-    color: 'white',
-    fontSize: 20,
-  },
-});

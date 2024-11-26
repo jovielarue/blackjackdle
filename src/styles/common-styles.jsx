@@ -14,4 +14,19 @@ export const styles = StyleSheet.create({
     fontWeight: 600,
     textAlign: 'center',
   },
+  subHeading: {
+    color: 'white',
+    fontSize: 20,
+    marginTop: 15,
+  },
+  explanation: {
+    backgroundColor: '#204924',
+    padding: 15,
+    marginTop: 25,
+    margin: 20,
+  },
+  explanationText: {
+    color: 'white',
+    fontSize: 20,
+  },
 });
