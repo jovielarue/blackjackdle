@@ -10,14 +10,20 @@ export default function Login({navigation}) {
         <Image style={loginStyles.logoImage} source={blackjackdleLogo} />
         <Text style={styles.headerText}>blackjackdle</Text>
       </View>
-      <TouchableOpacity style={loginStyles.button}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Home')}
+        style={loginStyles.button}>
         <Text style={loginStyles.buttonText}>Play Today's Blackjackdle</Text>
       </TouchableOpacity>
       <View style={loginStyles.bottomButtons}>
-        <TouchableOpacity style={loginStyles.button}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('HowToPlay')}
+          style={loginStyles.button}>
           <Text style={loginStyles.buttonText}>How to Play</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={loginStyles.button}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('AppInfo')}
+          style={loginStyles.button}>
           <Text style={loginStyles.buttonText}>App Info</Text>
         </TouchableOpacity>
       </View>
