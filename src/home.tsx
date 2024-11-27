@@ -170,6 +170,7 @@ const homeStyles = StyleSheet.create({
     flexDirection: 'row',
     width: '90%',
     justifyContent: 'space-between',
+    marginTop: 15,
   },
   playerCardsView: {
     width: '95%',
@@ -201,5 +202,9 @@ const homeStyles = StyleSheet.create({
   },
   top: {width: '100%', alignItems: 'center'},
   bottom: {width: '100%', alignItems: 'center'},
-  both: {width: '100%', height: '75%', gap: '40%'},
+  both: {
+    width: '100%',
+    height: '75%',
+    justifyContent: 'space-between',
+  },
 });
