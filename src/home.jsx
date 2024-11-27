@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles/common-styles';
-import Card from './components/card';
 import CardButton from './components/card-button';
+import DealerHand from './components/dealer-hand';
+import PlayerHand from './components/player-hand';
 
 export default function Home() {
+  const [player, setPlayer] = useState([]);
+  const [dealer, setDealer] = useState([]);
+  const [deck, setDeck] = useState([]);
+
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
@@ -16,19 +21,13 @@ export default function Home() {
         <View style={homeStyles.top}>
           {/* Component these 2 */}
           <Text style={homeStyles.playerText}>Dealer</Text>
-          <View style={homeStyles.playerCardsView}>
-            <Card title="Card" />
-            <Card title="Card" />
-          </View>
+          <DealerHand dealer={dealer} />
           <Text style={homeStyles.playerText}>
             -- Dealer hits on soft 17 --
           </Text>
 
           <Text style={homeStyles.playerText}>You</Text>
-          <View style={homeStyles.playerCardsView}>
-            <Card title="Card" />
-            <Card title="Card" />
-          </View>
+          <PlayerHand player={player} />
         </View>
 
         <View style={homeStyles.bottom}>
