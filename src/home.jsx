@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
 import {styles} from './styles/common-styles';
 import Card from './components/card';
+const statisticIcon = require('./assets/statistics.png');
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
-      <TouchableOpacity>
-        <Text>stats icon goes here</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Stats')}>
+        <Image source={statisticIcon} />
       </TouchableOpacity>
 
       <View>

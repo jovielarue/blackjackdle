@@ -15,11 +15,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 15,
   },
-  subHeading: {
-    color: 'white',
-    fontSize: 20,
-    marginTop: 15,
-  },
   explanation: {
     backgroundColor: '#204924',
     padding: 15,
