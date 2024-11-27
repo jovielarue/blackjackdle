@@ -1,12 +1,20 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {styles} from './styles/common-styles';
 import CardButton from './components/card-button';
 import DealerHand from './components/dealer-hand';
 import PlayerHand from './components/player-hand';
 import {Deck} from './components/deck';
+const statisticIcon = require('./assets/statistics.png');
 
-export default function Home() {
+export default function Home({navigation}: any) {
   const [deck, setDeck] = useState<string[]>(Object.keys(Deck));
   const [player, setPlayer] = useState<string[]>([]);
   const [dealer, setDealer] = useState<string[]>([]);
@@ -42,8 +50,8 @@ export default function Home() {
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
-      <TouchableOpacity>
-        <Text>stats icon goes here</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Stats')}>
+        <Image source={statisticIcon} />
       </TouchableOpacity>
 
       <View style={homeStyles.both}>
