@@ -15,12 +15,49 @@ export default function App() {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.mainView}>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Stats" component={Stats} />
-          <Stack.Screen name="HowToPlay" component={HowToPlay} />
-          <Stack.Screen name="AppInfo" component={AppInfo} />
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#2B6030',
+            },
+            headerTintColor: '#FFFFFF',
+          }}>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              title: 'Home',
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              title: 'Play',
+            }}
+          />
+          <Stack.Screen
+            name="Stats"
+            component={Stats}
+            options={{
+              title: 'Your Stats',
+            }}
+          />
+          <Stack.Screen
+            name="HowToPlay"
+            component={HowToPlay}
+            options={{
+              title: 'How to Play',
+            }}
+          />
+          <Stack.Screen
+            name="AppInfo"
+            component={AppInfo}
+            options={{
+              title: 'App Info',
+            }}
+          />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>

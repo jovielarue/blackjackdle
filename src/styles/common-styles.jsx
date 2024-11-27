@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 600,
     textAlign: 'center',
+    marginTop: 15,
   },
   subHeading: {
     color: 'white',
