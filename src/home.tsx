@@ -47,16 +47,16 @@ export default function Home({navigation}: any) {
     }
     return deckToShuffle;
   };
+
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Stats')}>
-        <Image source={statisticIcon} />
+        <Image style={homeStyles.statsIcon} source={statisticIcon} />
       </TouchableOpacity>
 
       <View style={homeStyles.both}>
         <View style={homeStyles.top}>
-          {/* Component these 2 */}
           <Text style={homeStyles.playerText}>Dealer</Text>
           <DealerHand dealer={dealer} />
           <Text style={homeStyles.playerText}>
@@ -107,7 +107,12 @@ const homeStyles = StyleSheet.create({
     gap: 12,
     padding: 8,
   },
+  statsIcon: {
+    width: 50,
+    height: 50,
+    margin: 15,
+  },
   top: {width: '100%', alignItems: 'center'},
   bottom: {width: '100%', alignItems: 'center'},
-  both: {width: '100%', height: '100%', gap: '40%'},
+  both: {width: '100%', height: '75%', gap: '40%'},
 });

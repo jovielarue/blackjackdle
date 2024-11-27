@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles/common-styles';
 const blackjackdleLogo = require('./assets/blackjackdle.png');
+const statisticIcon = require('./assets/statistics.png');
 
 export default function Login({navigation}) {
   return (
@@ -9,6 +10,13 @@ export default function Login({navigation}) {
       <View style={loginStyles.logoView}>
         <Image style={loginStyles.logoImage} source={blackjackdleLogo} />
         <Text style={styles.headerText}>blackjackdle</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Stats')}>
+          <Image
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{width: 30, height: 30, margin: 15}}
+            source={statisticIcon}
+          />
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate('Home')}

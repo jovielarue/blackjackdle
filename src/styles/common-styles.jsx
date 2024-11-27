@@ -10,6 +10,8 @@ export const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 30,
+    textShadowColor: 'black',
+    textShadowRadius: 10,
     color: 'white',
     fontWeight: 600,
     textAlign: 'center',
