@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles/common-styles';
 import CardButton from './components/card-button';
 import DealerHand from './components/dealer-hand';
@@ -40,14 +40,6 @@ export default function Home({navigation}: any) {
       setDraw(false);
     }
   }, [dealer, deck]);
-
-  const start = () => {
-    const mutDeck = Shuffle(deck);
-    const cards = mutDeck.splice(0, 4);
-    setPlayer([...player, cards[0], cards[2]]);
-    setDealer([...dealer, cards[1], cards[3]]);
-    setDeck([...mutDeck]);
-  };
 
   const Shuffle = (deckToShuffle: string[]) => {
     let currentIndex = deckToShuffle.length;
@@ -116,6 +108,15 @@ export default function Home({navigation}: any) {
     }
   }, [draw, drawDealer, dealer]);
 
+  useEffect(() => {
+    const mutDeck = Shuffle(deck);
+    const cards = mutDeck.splice(0, 4);
+    setPlayer([...player, cards[0], cards[2]]);
+    setDealer([...dealer, cards[1], cards[3]]);
+    setDeck([...mutDeck]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
@@ -158,14 +159,6 @@ export default function Home({navigation}: any) {
             />
             <CardButton title={'Stand'} onClick={() => EndRound()} />
           </View>
-          <Button title="Start" onPress={start} />
-          <Button
-            title="refresh"
-            onPress={() => {
-              setPlayer([]);
-              setDealer([]);
-            }}
-          />
         </View>
       </View>
     </View>
