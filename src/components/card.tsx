@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-export default function Card() {
+export default function Card(props: {title: string}) {
   return (
     <View style={styles.cardView}>
-      <Text>card</Text>
+      <Text style={styles.cardText}>{props.title}</Text>
     </View>
   );
 }
@@ -14,5 +14,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 80,
     backgroundColor: 'pink',
+    justifyContent: 'center',
+  },
+  cardText: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
