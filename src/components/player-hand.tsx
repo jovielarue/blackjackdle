@@ -2,11 +2,12 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import Card from './card';
 
-export default function PlayerHand() {
+export default function PlayerHand(props: {player: string[]}) {
   return (
     <View style={homeStyles.playerCardsView}>
-      <Card title="Card" />
-      <Card title="Card" />
+      {props.player.map(card => {
+        return <Card title={card} key={card} />;
+      })}
     </View>
   );
 }

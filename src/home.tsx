@@ -1,15 +1,44 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles/common-styles';
 import CardButton from './components/card-button';
 import DealerHand from './components/dealer-hand';
 import PlayerHand from './components/player-hand';
+import {Deck} from './components/deck';
 
 export default function Home() {
-  const [player, setPlayer] = useState([]);
-  const [dealer, setDealer] = useState([]);
-  const [deck, setDeck] = useState([]);
+  const [deck, setDeck] = useState<string[]>(Object.keys(Deck));
+  const [player, setPlayer] = useState<string[]>([]);
+  const [dealer, setDealer] = useState<string[]>([]);
 
+  const start = () => {
+    const mutDeck = Shuffle(deck);
+    const cards = mutDeck.splice(0, 4);
+
+    setPlayer([...player, cards[0], cards[2]]);
+
+    setDealer([...dealer, cards[1], cards[3]]);
+
+    setDeck([...mutDeck]);
+  };
+
+  const Shuffle = (deckToShuffle: string[]) => {
+    let currentIndex = deckToShuffle.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+      // Pick a remaining element...
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [deckToShuffle[currentIndex], deckToShuffle[randomIndex]] = [
+        deckToShuffle[randomIndex],
+        deckToShuffle[currentIndex],
+      ];
+    }
+    return deckToShuffle;
+  };
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
@@ -39,6 +68,7 @@ export default function Home() {
             />
             <CardButton title={'Stand'} onClick={() => console.log('Stand')} />
           </View>
+          <Button title="Start" onPress={start} />
         </View>
       </View>
     </View>
