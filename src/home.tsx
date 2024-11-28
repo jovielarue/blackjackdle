@@ -13,6 +13,7 @@ export default function Home({navigation}: any) {
   const [dealer, setDealer] = useState<string[]>([]);
   const [wager, setWager] = useState<number>(100);
   const [draw, setDraw] = useState<boolean>(false);
+  const [winner, setWinner] = useState<string>('');
 
   const drawPlayer = () => {
     const mutDeck = Shuffle(deck);
@@ -38,6 +39,7 @@ export default function Home({navigation}: any) {
       setDraw(true);
     } else {
       setDraw(false);
+      setWinner(getWinner());
     }
   }, [dealer, deck]);
 
@@ -88,7 +90,14 @@ export default function Home({navigation}: any) {
     }
   }
 
+  const getWinner = () => {
+    return '';
+  };
+
   const EndRound = () => {
+    //if before lunch display wait banner
+
+    //else code below
     let Hand = EvaluateHand(dealer);
     if (Hand.includes('/')) {
       const soft = +Hand.split('/')[1];
@@ -99,10 +108,12 @@ export default function Home({navigation}: any) {
       setDraw(true);
     } else {
       setDraw(false);
+      setWinner(getWinner());
     }
   };
 
   useEffect(() => {
+    console.log(draw);
     if (draw === true) {
       drawDealer();
     }
