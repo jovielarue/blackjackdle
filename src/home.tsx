@@ -91,7 +91,32 @@ export default function Home({navigation}: any) {
   }
 
   const getWinner = () => {
-    return '';
+    const playerEvaluatedHand = EvaluateHand(player);
+    let playervalue;
+    const dealerEvaluatedHand = EvaluateHand(dealer);
+    let dealervalue;
+
+    if (playerEvaluatedHand.includes('/')) {
+      playervalue = +playerEvaluatedHand.split('/')[1];
+    } else {
+      playervalue = +playerEvaluatedHand;
+    }
+
+    if (dealerEvaluatedHand.includes('/')) {
+      dealervalue = +dealerEvaluatedHand.split('/')[1];
+    } else {
+      dealervalue = +dealerEvaluatedHand;
+    }
+    if (playervalue <= 21 && (playervalue > dealervalue || dealervalue > 21)) {
+      return 'Player';
+    } else if (
+      playervalue === dealervalue ||
+      (playervalue > 21 && dealervalue > 21)
+    ) {
+      return 'Nobody';
+    } else {
+      return 'Dealer';
+    }
   };
 
   const EndRound = () => {
@@ -155,6 +180,8 @@ export default function Home({navigation}: any) {
           </View>
           <PlayerHand player={player} />
         </View>
+
+        <Text>{winner}</Text>
 
         <View style={homeStyles.bottom}>
           <Text style={homeStyles.playerText}>Wager: {wager}</Text>
