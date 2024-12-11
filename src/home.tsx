@@ -181,8 +181,6 @@ export default function Home({navigation}: any) {
           <PlayerHand player={player} />
         </View>
 
-        <Text>{winner}</Text>
-
         <View style={homeStyles.bottom}>
           <Text style={homeStyles.playerText}>Wager: {wager}</Text>
           <View style={homeStyles.actionCardsView}>
@@ -197,6 +195,7 @@ export default function Home({navigation}: any) {
             />
             <CardButton title={'Stand'} onClick={() => EndRound()} />
           </View>
+          <Text style={homeStyles.playerText}>{winner} wins!</Text>
         </View>
       </View>
     </View>
@@ -239,7 +238,7 @@ const homeStyles = StyleSheet.create({
     margin: 15,
   },
   top: {width: '100%', alignItems: 'center'},
-  bottom: {width: '100%', alignItems: 'center'},
+  bottom: {width: '100%', alignItems: 'center', padding: 2},
   both: {
     width: '100%',
     height: '75%',
