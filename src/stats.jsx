@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {styles} from './styles/common-styles';
 import WinDistributionBar from './components/win-distribution-bar';
+import {storage} from './storage';
 
 export default function HowToPlay() {
+  const [wins, setWins] = useState();
+  const [losses, setLosses] = useState();
+  const [bjs, setBjs] = useState();
+
+  useEffect(() => {
+    getStats();
+  });
+
+  const getStats = () => {
+    setWins(storage.getNumber('wins'));
+    setLosses(storage.getNumber('losses'));
+    setBjs(storage.getNumber('bjs'));
+  };
   return (
     <View style={styles.screenView}>
       <Text style={styles.headerText}>blackjackdle</Text>
@@ -11,21 +25,23 @@ export default function HowToPlay() {
         <Text style={statsStyles.subHeading}>Statistics</Text>
         <View style={statsStyles.overview}>
           <View style={statsStyles.overviewSection}>
-            <Text style={statsStyles.overviewText}>166</Text>
+            <Text style={statsStyles.overviewText}>{wins + losses}</Text>
             <Text style={statsStyles.smallOverviewText}>played</Text>
           </View>
           <View style={statsStyles.overviewSection}>
-            <Text style={statsStyles.overviewText}>94</Text>
+            <Text style={statsStyles.overviewText}>
+              {Math.floor((wins / (wins + losses)) * 100)}
+            </Text>
             <Text style={statsStyles.smallOverviewText}>win %</Text>
           </View>
           <View style={statsStyles.overviewSection}>
-            <Text style={statsStyles.overviewText}>20</Text>
+            <Text style={statsStyles.overviewText}>{wins}</Text>
             <Text style={statsStyles.smallOverviewText}>
               current win streak
             </Text>
           </View>
           <View style={statsStyles.overviewSection}>
-            <Text style={statsStyles.overviewText}>40</Text>
+            <Text style={statsStyles.overviewText}>{wins * 2}</Text>
             <Text style={statsStyles.smallOverviewText}>max win streak</Text>
           </View>
         </View>
@@ -35,23 +51,23 @@ export default function HowToPlay() {
         <View style={statsStyles.winDistribution}>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Blackjacks:</Text>
-            <WinDistributionBar number={11} />
+            <WinDistributionBar number={bjs} />
           </View>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Double wins:</Text>
-            <WinDistributionBar number={5} />
+            <WinDistributionBar number={wins * 2} />
           </View>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Regular wins:</Text>
-            <WinDistributionBar number={40} />
+            <WinDistributionBar number={wins} />
           </View>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Regular losses:</Text>
-            <WinDistributionBar number={50} />
+            <WinDistributionBar number={losses} />
           </View>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Double losses:</Text>
-            <WinDistributionBar number={20} />
+            <WinDistributionBar number={losses * 2} />
           </View>
         </View>
       </View>

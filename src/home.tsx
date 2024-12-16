@@ -6,6 +6,7 @@ import DealerHand from './components/dealer-hand';
 import PlayerHand from './components/player-hand';
 import {Deck} from './components/deck';
 import Waiting from './components/waiting';
+import {storage} from './storage';
 
 const statisticIcon = require('./assets/statistics.png');
 
@@ -151,7 +152,7 @@ export default function Home({navigation}: any) {
     }
   }
 
-  const getWinner = useCallback(() => {
+  const getWinner = useCallback(async () => {
     const playerEvaluatedHand = EvaluateHand(player);
     let playervalue;
     const dealerEvaluatedHand = EvaluateHand(dealer);
@@ -170,6 +171,23 @@ export default function Home({navigation}: any) {
     }
     if (playervalue <= 21 && (playervalue > dealervalue || dealervalue > 21)) {
       setWinner('Player');
+
+      // if blackjack, update Bjs, otherwise update regular wins
+      if (playervalue === 21) {
+        const currBjs = storage.getNumber('bjs');
+        if (currBjs !== undefined) {
+          storage.set('bjs', currBjs + 1);
+        } else {
+          storage.set('bjs', 1);
+        }
+      } else {
+        const currWins = storage.getNumber('wins');
+        if (currWins !== undefined) {
+          storage.set('wins', currWins + 1);
+        } else {
+          storage.set('wins', 1);
+        }
+      }
     } else if (
       playervalue === dealervalue ||
       (playervalue > 21 && dealervalue > 21)
@@ -177,6 +195,12 @@ export default function Home({navigation}: any) {
       setWinner('Nobody');
     } else {
       setWinner('Dealer');
+      const currLoss = storage.getNumber('losses');
+      if (currLoss !== undefined) {
+        storage.set('losses', currLoss + 1);
+      } else {
+        storage.set('losses', 1);
+      }
     }
   }, [dealer, player]);
 
