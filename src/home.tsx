@@ -5,6 +5,8 @@ import CardButton from './components/card-button';
 import DealerHand from './components/dealer-hand';
 import PlayerHand from './components/player-hand';
 import {Deck} from './components/deck';
+import Waiting from './components/waiting';
+
 const statisticIcon = require('./assets/statistics.png');
 
 export default function Home({navigation}: any) {
@@ -14,11 +16,16 @@ export default function Home({navigation}: any) {
   const [wager, setWager] = useState<number>(100);
   const [draw, setDraw] = useState<boolean>(false);
   const [winner, setWinner] = useState<string>('');
+  const [waiting, setWaiting] = useState<boolean>(false);
 
   const drawPlayer = () => {
     const mutDeck = Shuffle(deck);
     const cards = mutDeck.splice(0, 1);
-    setPlayer([...player, cards[0]]);
+    const newHand = [...player, cards[0]];
+    if (didBust(newHand)) {
+      EndRound();
+    }
+    setPlayer(newHand);
     setDeck([...mutDeck]);
   };
 
@@ -39,9 +46,7 @@ export default function Home({navigation}: any) {
       setDraw(true);
     } else {
       setDraw(false);
-      setWinner(getWinner());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealer, deck]);
 
   const Shuffle = (deckToShuffle: string[]) => {
@@ -91,7 +96,62 @@ export default function Home({navigation}: any) {
     }
   }
 
-  const getWinner = () => {
+  function didBust(Hand: string[]) {
+    let value = 0;
+
+    for (let i = 0; i < Hand.length; i++) {
+      const element = Hand[i];
+      const temp = element.split(':')[0];
+
+      if (temp === 'J' || temp === 'Q' || temp === 'K') {
+        value += 10;
+      } else if (temp === 'A') {
+        value += 1;
+      } else {
+        value += +temp;
+      }
+    }
+
+    if (value > 21) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function EvaluateDealerHand(Hand: string[]) {
+    let value = 0;
+    let ace = false;
+    let i = 0;
+    if (winner === '') {
+      i++;
+    }
+    for (i; i < Hand.length; i++) {
+      const element = Hand[i];
+      const temp = element.split(':')[0];
+
+      if (temp === 'J' || temp === 'Q' || temp === 'K') {
+        value += 10;
+      } else if (temp === 'A') {
+        value += 1;
+        ace = true;
+      } else {
+        value += +temp;
+      }
+    }
+
+    if (ace) {
+      if (value + 10 > 21) {
+        return value + '';
+      } else {
+        return value + '/' + (value + 10);
+      }
+    } else {
+      return value + '';
+    }
+  }
+
+  const getWinner = useCallback(() => {
     const playerEvaluatedHand = EvaluateHand(player);
     let playervalue;
     const dealerEvaluatedHand = EvaluateHand(dealer);
@@ -109,21 +169,23 @@ export default function Home({navigation}: any) {
       dealervalue = +dealerEvaluatedHand;
     }
     if (playervalue <= 21 && (playervalue > dealervalue || dealervalue > 21)) {
-      return 'Player';
+      setWinner('Player');
     } else if (
       playervalue === dealervalue ||
       (playervalue > 21 && dealervalue > 21)
     ) {
-      return 'Nobody';
+      setWinner('Nobody');
     } else {
-      return 'Dealer';
+      setWinner('Dealer');
     }
-  };
+  }, [dealer, player]);
 
   const EndRound = () => {
     //if before lunch display wait banner
+    setWaiting(true);
+  };
 
-    //else code below
+  const finishGame = () => {
     let Hand = EvaluateHand(dealer);
     if (Hand.includes('/')) {
       const soft = +Hand.split('/')[1];
@@ -134,16 +196,16 @@ export default function Home({navigation}: any) {
       setDraw(true);
     } else {
       setDraw(false);
-      setWinner(getWinner());
     }
   };
 
   useEffect(() => {
-    console.log(draw);
     if (draw === true) {
       drawDealer();
+    } else {
+      getWinner();
     }
-  }, [draw, drawDealer, dealer]);
+  }, [draw, drawDealer, getWinner]);
 
   useEffect(() => {
     const mutDeck = Shuffle(deck);
@@ -156,6 +218,12 @@ export default function Home({navigation}: any) {
 
   return (
     <View style={styles.screenView}>
+      {waiting ? (
+        <Waiting setWaiting={setWaiting} finish={finishGame} />
+      ) : (
+        <></>
+      )}
+
       <Text style={styles.headerText}>blackjackdle</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Stats')}>
         <Image style={homeStyles.statsIcon} source={statisticIcon} />
@@ -166,10 +234,10 @@ export default function Home({navigation}: any) {
           <View style={homeStyles.TextJustifyBetween}>
             <Text style={homeStyles.playerText}>Dealer</Text>
             <Text style={homeStyles.playerText}>
-              HandValue: {EvaluateHand(dealer)}
+              HandValue: {EvaluateDealerHand(dealer)}
             </Text>
           </View>
-          <DealerHand dealer={dealer} />
+          <DealerHand dealer={dealer} winner={winner} />
           <Text style={homeStyles.playerText}>
             -- Dealer hits on soft 17 --
           </Text>
