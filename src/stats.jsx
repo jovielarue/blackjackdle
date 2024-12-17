@@ -51,7 +51,7 @@ export default function HowToPlay() {
         <View style={statsStyles.winDistribution}>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Blackjacks:</Text>
-            <WinDistributionBar number={bjs} />
+            <WinDistributionBar number={bjs ? bjs : 0} />
           </View>
           <View style={statsStyles.winSection}>
             <Text style={statsStyles.smallWinText}>Double wins:</Text>
