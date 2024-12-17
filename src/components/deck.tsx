@@ -114,3 +114,9 @@ export const Deck: ICard = {
   'Q:D': require('../assets/cards/Q-D.png'),
   'K:D': require('../assets/cards/K-D.png'),
 };
+
+export const PlayingDeck: ICard = {
+  hit: require('../assets/cards/J-D.png'),
+  double: require('../assets/cards/Q-D.png'),
+  stand: require('../assets/cards/K-D.png'),
+};

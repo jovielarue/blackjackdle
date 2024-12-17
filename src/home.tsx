@@ -41,6 +41,7 @@ export default function Home({navigation}: any) {
       setDraw(false);
       setWinner(getWinner());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dealer, deck]);
 
   const Shuffle = (deckToShuffle: string[]) => {
@@ -184,16 +185,16 @@ export default function Home({navigation}: any) {
         <View style={homeStyles.bottom}>
           <Text style={homeStyles.playerText}>Wager: {wager}</Text>
           <View style={homeStyles.actionCardsView}>
-            <CardButton title={'Hit'} onClick={() => drawPlayer()} />
+            <CardButton title={'hit'} onClick={() => drawPlayer()} />
             <CardButton
-              title={'Double'}
+              title={'double'}
               onClick={() => {
                 drawPlayer();
                 const newWager = wager * 2;
                 setWager(newWager);
               }}
             />
-            <CardButton title={'Stand'} onClick={() => EndRound()} />
+            <CardButton title={'stand'} onClick={() => EndRound()} />
           </View>
           <Text style={homeStyles.playerText}>{winner} wins!</Text>
         </View>

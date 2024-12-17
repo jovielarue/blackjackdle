@@ -15,13 +15,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 80,
   },
-  cardText: {
-    textAlign: 'center',
-    fontSize: 16,
-  },
-  cardImg: {
-    width: '100%',
-    height: '100%',
-  },
+
   imageStyle: {height: '100%', width: '120%'},
 });
