@@ -20,33 +20,37 @@ export default function Home({navigation}: any) {
   const [waiting, setWaiting] = useState<boolean>(false);
 
   const drawPlayer = () => {
-    const mutDeck = Shuffle(deck);
-    const cards = mutDeck.splice(0, 1);
-    const newHand = [...player, cards[0]];
-    if (didBust(newHand)) {
-      EndRound();
+    if (!(player.length >= 5)) {
+      const mutDeck = Shuffle(deck);
+      const cards = mutDeck.splice(0, 1);
+      const newHand = [...player, cards[0]];
+      if (didBust(newHand)) {
+        EndRound();
+      }
+      setPlayer(newHand);
+      setDeck([...mutDeck]);
     }
-    setPlayer(newHand);
-    setDeck([...mutDeck]);
   };
 
   const drawDealer = useCallback(() => {
-    const mutDeck = Shuffle(deck);
-    const cards = mutDeck.splice(0, 1);
-    const newDealer = [...dealer, cards[0]];
-    setDealer(newDealer);
-    setDeck([...mutDeck]);
+    if (!(dealer.length >= 5)) {
+      const mutDeck = Shuffle(deck);
+      const cards = mutDeck.splice(0, 1);
+      const newDealer = [...dealer, cards[0]];
+      setDealer(newDealer);
+      setDeck([...mutDeck]);
 
-    const Hand = EvaluateHand(newDealer);
-    if (Hand.includes('/')) {
-      const soft = +Hand.split('/')[1];
-      if (soft <= 17) {
+      const Hand = EvaluateHand(newDealer);
+      if (Hand.includes('/')) {
+        const soft = +Hand.split('/')[1];
+        if (soft <= 17) {
+          setDraw(true);
+        }
+      } else if (+Hand <= 16) {
         setDraw(true);
+      } else {
+        setDraw(false);
       }
-    } else if (+Hand <= 16) {
-      setDraw(true);
-    } else {
-      setDraw(false);
     }
   }, [dealer, deck]);
 
