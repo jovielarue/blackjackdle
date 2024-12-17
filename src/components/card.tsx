@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
+import {Deck} from './deck';
 
 export default function Card(props: {title: string}) {
   return (
     <View style={styles.cardView}>
-      <Text style={styles.cardText}>{props.title}</Text>
+      <Image style={styles.imageStyle} source={Deck[props.title]} />
     </View>
   );
 }
@@ -13,8 +14,6 @@ const styles = StyleSheet.create({
   cardView: {
     width: 50,
     height: 80,
-    backgroundColor: 'pink',
-    justifyContent: 'center',
   },
   cardText: {
     textAlign: 'center',
@@ -24,4 +23,5 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  imageStyle: {height: '100%', width: '120%'},
 });
